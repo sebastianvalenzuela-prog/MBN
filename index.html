@@ -150,17 +150,29 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
   #exportBtn{bottom:18px;right:18px;padding:12px 18px}.export-options{grid-template-columns:1fr}
 }
 @media print{
-  @page{size:A4 landscape;margin:12mm}
+  @page{size:A4 landscape;margin:10mm}
   html,body{width:100%;background:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  aside,#exportBtn,#exportModal,.tooltip-icon{display:none !important}
+  aside,#exportBtn,#exportModal,.tooltip-icon,.tooltip-wrap button,.resumen-top .control-group{display:none !important}
   main,body.sidebar-collapsed main{margin:0 auto !important;padding:0 !important;max-width:270mm !important}
-  .section{margin:0 0 10mm !important;break-inside:avoid}
-  .cards{grid-template-columns:repeat(4,1fr) !important}
-  .card,.panel,.pm-card{background:#fff !important;border:1px solid #C9D2DC !important;border-radius:8px !important;padding:8px !important}
-  body.print-minuta .analitico-only,
+  .section{margin:0 0 8mm !important;break-inside:avoid}
+  .cards{grid-template-columns:repeat(4,1fr) !important;gap:4mm !important}
+  .grid-2{grid-template-columns:1.2fr 1fr !important;gap:4mm !important}
+  .card,.panel,.pm-card{background:#fff !important;border:1px solid #C9D2DC !important;border-radius:6px !important;padding:8px !important;box-shadow:none !important}
+  .value{font-size:22px !important}
+  .canvas-wrap{height:200px !important}
+  /* MINUTA EJECUTIVA: solo resumen */
+  body.print-minuta #avance,
+  body.print-minuta #subtitulos,
+  body.print-minuta #operativa,
   body.print-minuta #tendencias,
+  body.print-minuta #st21,
+  body.print-minuta #ingresos,
   body.print-minuta #pmgcdc,
+  body.print-minuta #alertas,
   body.print-minuta #escenarios{display:none !important}
+  body.print-minuta .analitico-only{display:none !important}
+  /* ANALÍTICA COMPLETA: ocultar solo lo que no aplica */
+  body.print-analitico #avance{break-before:page}
 }
 </style>
 </head>
