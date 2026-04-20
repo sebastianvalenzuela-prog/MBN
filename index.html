@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Panel Ejecutivo MBN – Ejecución Presupuestaria 2026</title>
+<title>Panel Ejecutivo MBN — Ejecución Presupuestaria 2026</title>
 <style>
 :root{
   --sidebar-w:260px;--sidebar-collapsed:72px;
@@ -49,7 +49,7 @@ body.sidebar-collapsed main{margin-left:var(--sidebar-collapsed)}
 .note{font-size:13px;color:var(--text-soft);background:#F5F8FB;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .grid-2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
 .panel h3{margin:0 0 4px;font-size:16px;font-weight:800;color:var(--gob-azul-osc)}
-.table-wrap{overflow:auto}
+.table-wrap{-webkit-overflow-scrolling:touch;overflow-x:auto;display:block;-webkit-overflow-scrolling:touch;overflow-x:auto;display:block;overflow:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th,td{padding:11px 10px;border-bottom:1px solid #E6ECF1;text-align:right;vertical-align:top}
 th:first-child,td:first-child{text-align:left}
@@ -174,6 +174,26 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
   /* ANALÍTICA COMPLETA: ocultar solo lo que no aplica */
   body.print-analitico #avance{break-before:page}
 }
+
+@media(max-width:760px){
+  .canvas-wrap{height:220px!important}
+  canvas{max-height:230px!important}
+}
+
+#mobileMenuBtn{display:none;position:fixed;top:12px;left:12px;z-index:40;
+  background:var(--gob-azul);color:#fff;border:none;border-radius:8px;
+  padding:8px 12px;font-size:20px;cursor:pointer;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+@media(max-width:760px){#mobileMenuBtn{display:block}}
+
+@media(max-width:760px){.canvas-wrap{height:220px!important}canvas{max-height:230px!important}}
+
+#mobileMenuBtn{display:none;position:fixed;top:12px;left:12px;z-index:40;background:var(--gob-azul);color:#fff;border:none;border-radius:8px;padding:8px 12px;font-size:20px;cursor:pointer;line-height:1;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+@media(max-width:760px){#mobileMenuBtn{display:block}}
+
+@media(max-width:400px){
+  .export-modal-box{padding:20px 16px!important}
+  .export-options{grid-template-columns:1fr!important}
+}
 </style>
 </head>
 <body>
@@ -217,9 +237,11 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
     <a href="#alertas">Alertas</a>
     <a href="#escenarios">Escenarios de cierre</a>
   </nav>
-  <div class="side-foot">Base integrada desde archivo Base(14).xlsx.<br>Ejecucion presupuestaria acumulada a marzo 2026.</div>
+  <div class="side-foot">Departamento de Presupuesto - Ministerio de Bienes Nacionales.</div>
 </aside>
 
+<button id="mobileMenuBtn" aria-label="Abrir menú">&#9776;</button>
+<button id="mobileMenuBtn" aria-label="Abrir menú">&#9776;</button>
 <main>
 
   <!-- RESUMEN -->
@@ -227,7 +249,7 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
     <div class="resumen-top">
       <div class="resumen-top-copy">
         <h2>Resumen Ejecutivo</h2>
-        <p>Lectura ejecutiva sobre ejecucion real a marzo, proyecciones referenciales y focos que requieren decision o seguimiento.</p>
+        <p>Lectura ejecutiva sobre ejecucion real a marzo, proyecciones referenciales y focos que requieren decision o seguimiento. <span class="sub" style="font-size:11px;color:var(--text-soft);margin-left:8px;font-weight:400">Corte: marzo 2026 | Fuente: SIGFE</span></p>
       </div>
       <div class="control-group">
         <span class="control-label">Vista</span>
@@ -252,7 +274,9 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
         </div>
       </div>
       <div class="panel">
-        <h3>Claves de Gestion Presupuestaria</h3>
+        <div class="alert-banner rojo" style="margin-bottom:16px"><div class="alert-banner-icon">!</div><div class="alert-banner-body"><div class="alert-banner-title">Riesgo de subejercicio ST24</div><div class="alert-banner-sub">Proyección de cierre en M$403.341 versus presupuesto vigente M$1.087.608. Saldo proyectado sin ejecutar: M$684.267 (63%). Requiere decisión de reasignación o rebaja.</div></div></div>
+</div></div></div>
+<h3>Claves de Gestion Presupuestaria</h3>
         <div id="execClaves" style="margin-top:12px"></div>
         <div class="note" id="criticalNote" style="margin-top:10px"></div>
       </div>
@@ -327,7 +351,7 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
           <span class="tooltip" id="operVisualTip"></span>
         </span>
       </h3>
-      <div class="mini" style="margin-bottom:4px">Ppto. vigente (gris) - Proyeccion de cierre (azul) - Devengado a marzo (rojo). Miles de pesos - Enero-marzo 2026.</div>
+      <div class="mini" style="margin-bottom:4px">Ppto. vigente (gris) - Proyeccion de cierre (azul) - Devengado a marzo (rojo). Miles de millones de pesos (MM$) - Enero-marzo 2026.</div>
       <div class="canvas-wrap" style="height:300px"><canvas id="chartOper"></canvas></div>
     </div>
     <div class="panel analitico-only" style="margin-top:16px">
@@ -379,8 +403,8 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
   <section class="section" id="st21">
     <div class="section-header">
       <div>
-        <h2>Subtitulo 21 - Gastos en Personal</h2>
-        <p>Analisis separado del ambito operativo.</p>
+        <h2>Subtítulo 21 — Gastos en Personal</h2>
+        <p>Análisis del marco presupuestario, aporte institucional y restricción de reajuste.</p>
       </div>
     </div>
     <div class="cards" id="st21Cards"></div>
@@ -427,7 +451,7 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
     <div class="grid-2">
       <div class="panel" id="cdcPanel"></div>
       <div class="panel">
-        <h3>PMG - Proyeccion de escenarios</h3>
+        <h3>PMG — Proyección de escenarios <span style="font-size:12px;font-weight:400;color:var(--text-soft)">(indicador de sentido descendente: menor valor = mejor desempeño)</span></h3>
         <div class="scenario-grid" id="pmgScenarios"></div>
       </div>
     </div>
@@ -461,9 +485,160 @@ body.modo-ejecutivo aside nav a[href="#escenarios"]{display:none !important}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
-const data = {"months":["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],"kpis":{"total_budget_m":62683762,"total_dev_m":11702837,"total_pct":0.186696,"oper_budget_m":12403506,"oper_dev_m":1445215,"oper_pct":0.116517,"oper_proj_m":9499524,"income_dev_m":32152921,"income_2025_m":25473242,"income_2024_m":33831898,"income_var_25":0.262223,"income_var_24":-0.049627,"caleta_m":721610,"decreto3_m":721610},"state_rows":[{"subt":21,"name":"21 Gastos en Personal","budget_m":25501688,"dev_m":6693696,"pct":0.26248,"proj_m":25500738},{"subt":22,"name":"22 Bienes y Servicios de Consumo","budget_m":9638791,"dev_m":1184340,"pct":0.122872,"proj_m":8300148},{"subt":24,"name":"24 Transferencias Corrientes","budget_m":1087608,"dev_m":66674,"pct":0.061303,"proj_m":403341},{"subt":26,"name":"26 Otros Gastos Corrientes","budget_m":205934,"dev_m":170277,"pct":0.826851,"proj_m":170277},{"subt":29,"name":"29 Adquisición de Activos No Financieros","budget_m":1471173,"dev_m":23924,"pct":0.016262,"proj_m":625758}],"st24_table":[{"name":"Regularización de Títulos de Dominio y Gestión de la Propiedad Fiscal asociada a Pueblos Indígenas","budget_m":574493,"dev_m":33373,"pct":0.058092,"proj_m":211039},{"name":"Gestión y Normalización de Inmuebles Ilegales e irregulares en inmuebles fiscales","budget_m":220560,"dev_m":16485,"pct":0.074743,"proj_m":148852},{"name":"Plan de Gestión Territorial Regional","budget_m":188840,"dev_m":11689,"pct":0.061897,"proj_m":37207},{"name":"Recuperación y Fortalecimiento de Rutas Patrimoniales","budget_m":53715,"dev_m":0,"pct":0.0,"proj_m":0},{"name":"Puesta en Valor del Territorio Fiscal","budget_m":50000,"dev_m":5127,"pct":0.102536,"proj_m":12803}],"income_rows":[],"top_units":[{"name":"División de Bienes Nacionales","budget_m":868142,"dev_m":205517,"pct":0.236732},{"name":"División Administrativa","budget_m":1104561,"dev_m":177417,"pct":0.160622},{"name":"División Planificación y Presupuesto","budget_m":4483660,"dev_m":285237,"pct":0.063617},{"name":"División Constitución Propiedad Raíz","budget_m":120577,"dev_m":4067,"pct":0.033731},{"name":"División de Catastro","budget_m":223146,"dev_m":3737,"pct":0.016748},{"name":"SNIT","budget_m":184247,"dev_m":216,"pct":0.001175}],"top_seremis":[{"name":"Seremi de Valparaíso","budget_m":378104,"dev_m":180466,"pct":0.477292},{"name":"Seremi de Antofagasta","budget_m":560904,"dev_m":148288,"pct":0.264374},{"name":"Seremi Metropolitana","budget_m":770011,"dev_m":154667,"pct":0.200863},{"name":"Seremi de Arica y Parinacota","budget_m":134700,"dev_m":25785,"pct":0.191423},{"name":"Seremi Aysén","budget_m":58771,"dev_m":10124,"pct":0.172263},{"name":"Seremi de La Araucanía","budget_m":386925,"dev_m":54196,"pct":0.140067},{"name":"Seremi Los Ríos","budget_m":267282,"dev_m":25958,"pct":0.097118},{"name":"Seremi de Atacama","budget_m":455224,"dev_m":41562,"pct":0.0913}],"trend_m":{"2024":[148614,473241,895189,1463816,2064383,2629104,3278391,3958666,4537020,5077933,5439603,7731681],"2025":[136860,435285,892732,1322792,1750279,2434853,3153124,3889439,4459888,4972864,5443579,6738137],"2026":[276643,898328,1445215,2209666,3503679,4921223,6303895,7082879,7797190,8379819,8975695,9499524]},"st21_hist_m":{"2024":[1395914,1798627,2832695,1726274,1726994,2899000,1701674,1710948,3012315,1635842,1736449,2956193],"2025":[1860413,1854712,3100914,1770761,1788282,3110492,1732169,1740746,3161152,1755546,1781378,3153093],"2026":[1683174,1924468,3086054,1682480,1691075,2889788,1652221,1660820,2969387,1630815,1692482,2937974]},"ingresos":[{"subt":6,"name":"06 - Rentas De La Propiedad","y2024_m":19709619,"y2025_m":24274057,"y2026_m":24189171,"signal":"sobre"},{"subt":12,"name":"12 - Recuperacion De Prestamos","y2024_m":10674749,"y2025_m":7287,"y2026_m":7391568,"signal":"sobre"},{"subt":10,"name":"10 - Venta De Activos No Financieros","y2024_m":3334271,"y2025_m":619012,"y2026_m":369504,"signal":"bajo"},{"subt":8,"name":"08 - Otros Ingresos Corrientes","y2024_m":81022,"y2025_m":572887,"y2026_m":193587,"signal":"bajo"}],"alerts":[{"subt":22,"name":"22 Bienes y Servicios de Consumo","sev":"amarillo","title":"Seguimiento de ritmo","pct":0.122872,"exp_pct":0.131222,"gap":-0.008349,"action":"Revisar licitaciones y compras con maduración en segundo trimestre; no es el principal foco crítico al cierre de marzo."},{"subt":24,"name":"24 Transferencias Corrientes","sev":"rojo","title":"Activación pendiente de iniciativas","pct":0.061303,"exp_pct":0.14391,"gap":-0.082607,"action":"Priorizar ejecución por iniciativa y validar cronograma realista de devengo para el segundo trimestre."},{"subt":26,"name":"26 Otros Gastos Corrientes","sev":"verde","title":"Ejecución anticipada","pct":0.826851,"exp_pct":0.127234,"gap":0.699617,"action":"Mantener control de cierre; no constituye foco prioritario salvo requerimientos adicionales."},{"subt":29,"name":"29 Adquisición de Activos No Financieros","sev":"amarillo","title":"Restricción externa y ejecución inicial","pct":0.016262,"exp_pct":0.089584,"gap":-0.073322,"action":"Separar Caleta Sierra del saldo operativo. El componente afecto al decreto no debe leerse como rezago de gestión ordinaria."}],"pmg_scenarios":[{"key":"programacion","name":"Según programación","calc":87.77,"meta":128.54,"gap":-40.77,"label":"Riesgo","annual_m":7637690,"numer_m":5316345,"den_m":6057218,"note":"Completa el año con la trayectoria programada para abril–diciembre."},{"key":"historico","name":"Según estacionalidad histórica","calc":177.18,"meta":128.54,"gap":48.64,"label":"Cumplimiento holgado","annual_m":9623597,"numer_m":10732458,"den_m":6057218,"note":"Extiende el gasto observado usando la distribución histórica 2024–2025."},{"key":"diciembre","name":"Devengo concentrado en diciembre","calc":454.29,"meta":128.54,"gap":325.75,"label":"Cumplimiento holgado","annual_m":10372193,"numer_m":27517551,"den_m":6057218,"note":"Supone concentración extraordinaria del saldo remanente en diciembre."}],"cdc":{"ratio_bi":1.0133,"status":"Cumple rango","meta1":83.33,"meta2":65.0,"ratio_aug_proxy":0.1045},"notes":{"foco_critico":"En ST29, M$ 721.610 corresponden a la expropiación Caleta Sierra. Ese componente no depende de gestión ordinaria y su disponibilidad está sujeta al decreto de rebaja del 3% de Hacienda.","projection_method":"La proyección de cierre es referencial. No representa ejecución real. Se construye con devengo acumulado a marzo, estacionalidad histórica 2024–2025 y programación 2026 cuando esta aporta señal operacional. Debe leerse separada del porcentaje de ejecución.","st21_method":"Para ST21 la proyección es referencial y se apoya en la estacionalidad histórica 2024–2025 del gasto en personal, acotada al marco vigente.","visual_oper_method":"Comparación entre devengo real a marzo, presupuesto vigente y proyección referencial de cierre para subtítulos operativos."},"closure_scenarios":[{"subt":"22","name":"22 Bienes y Servicios de Consumo","budget_m":9638791,"favorable_m":9130163,"moderado_m":8300148,"adverso_m":7138127},{"subt":"24","name":"24 Transferencias Corrientes","budget_m":1087608,"favorable_m":451742,"moderado_m":403341,"adverso_m":322673},{"subt":"29","name":"29 Adquisición de Activos No Financieros","budget_m":749563,"favorable_m":749563,"moderado_m":625758,"adverso_m":419258}]};
+const data = {
+  "months":["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],
+  "kpis":{
+    "total_budget_m":62683762,
+    "total_dev_m":11702840,
+    "total_pct":0.18670,
+    "oper_budget_m":12403506,
+    "oper_dev_m":1445215,
+    "oper_pct":0.116517,
+    "oper_proj_m":9499524,
+    "income_dev_m":32152921,
+    "income_2025_m":25473242,
+    "income_2024_m":33831898,
+    "income_var_25":0.262223,
+    "income_var_24":-0.049627,
+    "caleta_m":721610,
+    "decreto3_m":721610
+  },
+  "state_rows":[
+    {"subt":21,"name":"21 Gastos en Personal","budget_m":25501688,"dev_m":6693696,"pct":0.26248,"proj_m":27023113},
+    {"subt":22,"name":"22 Bienes y Servicios de Consumo","budget_m":9638791,"dev_m":1184340,"pct":0.122872,"proj_m":8300148},
+    {"subt":24,"name":"24 Transferencias Corrientes","budget_m":1087608,"dev_m":66674,"pct":0.061303,"proj_m":403341},
+    {"subt":26,"name":"26 Otros Gastos Corrientes","budget_m":205934,"dev_m":170277,"pct":0.826851,"proj_m":170277},
+    {"subt":29,"name":"29 Adquisición de Activos No Financieros","budget_m":1471173,"dev_m":23924,"pct":0.016262,"proj_m":625758}
+  ],
+  "st21":{
+    "budget_vigente_m":25501688,
+    "aporte_institucional_m":1521425,
+    "reajuste_m":950000,
+    "reajuste_otorgado":false,
+    "presupuesto_proyectado_m":27023113,
+    "dev_m":6693696,
+    "pct_sobre_vigente":0.26248,
+    "pct_sobre_proyectado":0.24773,"proj_m":27023113
+  },
+  "st24_table":[
+    {"name":"Regularización de Títulos de Dominio y Gestión de la Propiedad Fiscal asociada a Pueblos Indígenas","budget_m":574493,"dev_m":33373,"pct":0.058092,"proj_m":211039},
+    {"name":"Gestión y Normalización de Inmuebles Ilegales e irregulares en inmuebles fiscales","budget_m":220560,"dev_m":16485,"pct":0.074743,"proj_m":148852},
+    {"name":"Plan de Gestión Territorial Regional","budget_m":188840,"dev_m":11689,"pct":0.061897,"proj_m":37207},
+    {"name":"Recuperación y Fortalecimiento de Rutas Patrimoniales","budget_m":53715,"dev_m":0,"pct":0.0,"proj_m":0},
+    {"name":"Puesta en Valor del Territorio Fiscal","budget_m":50000,"dev_m":5127,"pct":0.102536,"proj_m":12803}
+  ],
+  "income_rows":[],
+  "top_units":[
+    {"name":"División de Bienes Nacionales","budget_m":868142,"dev_m":205517,"pct":0.236732},
+    {"name":"División Administrativa","budget_m":1104561,"dev_m":177417,"pct":0.160622},
+    {"name":"División Planificación y Presupuesto","budget_m":4483660,"dev_m":285237,"pct":0.063617},
+    {"name":"División Constitución Propiedad Raíz","budget_m":120577,"dev_m":4067,"pct":0.033731},
+    {"name":"División de Catastro","budget_m":223146,"dev_m":3737,"pct":0.016748},
+    {"name":"SNIT","budget_m":184247,"dev_m":216,"pct":0.001175}
+  ],
+  "top_seremis":[
+    {"name":"Seremi de Valparaíso","budget_m":378104,"dev_m":180466,"pct":0.477292},
+    {"name":"Seremi de Antofagasta","budget_m":560904,"dev_m":148288,"pct":0.264374},
+    {"name":"Seremi Metropolitana","budget_m":770011,"dev_m":154667,"pct":0.200863},
+    {"name":"Seremi de Arica y Parinacota","budget_m":134700,"dev_m":25785,"pct":0.191423},
+    {"name":"Seremi Aysén","budget_m":58771,"dev_m":10124,"pct":0.172263},
+    {"name":"Seremi de La Araucanía","budget_m":386925,"dev_m":54196,"pct":0.140067},
+    {"name":"Seremi Los Ríos","budget_m":267282,"dev_m":25958,"pct":0.097118},
+    {"name":"Seremi de Atacama","budget_m":455224,"dev_m":41562,"pct":0.091300}
+  ],
+  "trend_m":{
+    "2024":[148614,473241,895189,1463816,2064383,2629104,3278391,3958666,4537020,5077933,5439603,7731681],
+    "2025":[136860,435285,892732,1322792,1750279,2434853,3153124,3889439,4459888,4972864,5443579,6738137],
+    "2026":[276643,898328,1445215,2209666,3503679,4921223,6303895,7082879,7797190,8379819,8975695,9499524]
+  },
+  "st21_hist_m":{
+    "2024":[1395914,1798627,2832695,1726274,1726994,2899000,1701674,1710948,3012315,1635842,1736449,2956193],
+    "2025":[1860413,1854712,3100914,1770761,1788282,3110492,1732169,1740746,3161152,1755546,1781378,3153093],
+    "2026":[1683174,1924468,3086054,1682480,1691075,2889788,1652221,1660820,2969387,1630815,1692482,2937974]
+  },
+  "ingresos":[
+    {"subt":6,"name":"06 — Rentas de la Propiedad","y2024_m":19709619,"y2025_m":24274057,"y2026_m":24189171,"signal":"sobre"},
+    {"subt":12,"name":"12 — Recuperación de Préstamos","y2024_m":10674749,"y2025_m":7287,"y2026_m":7391568,"signal":"sobre"},
+    {"subt":10,"name":"10 — Venta de Activos No Financieros","y2024_m":3334271,"y2025_m":619012,"y2026_m":369504,"signal":"bajo"},
+    {"subt":8,"name":"08 — Otros Ingresos Corrientes","y2024_m":81022,"y2025_m":572887,"y2026_m":193587,"signal":"bajo"}
+  ],
+  "alerts":[
+    {"subt":22,"name":"22 Bienes y Servicios de Consumo","sev":"amarillo","title":"Ritmo bajo la trayectoria esperada","pct":0.122872,"exp_pct":0.131222,"gap":-0.008349,"action":"Revisar el avance de licitaciones y procesos de compra con resolución en el segundo trimestre. No constituye el foco crítico al cierre de marzo, pero requiere seguimiento mensual."},
+    {"subt":24,"name":"24 Transferencias Corrientes","sev":"rojo","title":"Iniciativas sin activación","pct":0.061303,"exp_pct":0.14391,"gap":-0.082607,"action":"Identificar las iniciativas sin devengo y validar el cronograma de activación para el segundo trimestre. La brecha acumulada requerirá aceleración sostenida para no comprometer el cierre anual."},
+    {"subt":26,"name":"26 Otros Gastos Corrientes","sev":"verde","title":"Ejecución adelantada","pct":0.826851,"exp_pct":0.127234,"gap":0.699617,"action":"El subtítulo no presenta foco de atención. Mantener control de eventuales requerimientos adicionales en el tramo final del año. <span class=\\\"note\\\" style=\\\"display:block;margin-top:6px;padding:6px 10px;background:#F0F4F8;border-left:3px solid #617284;border-radius:4px\\\">El alto avance responde a devoluciones priorizadas ante DIPRES, comprometidas en el primer trimestre. No representa sobreejercicio no planificado.</span>"},
+    {"subt":29,"name":"29 Adquisición de Activos No Financieros","sev":"amarillo","title":"Restricción externa activa — Caleta Sierra","pct":0.016262,"exp_pct":0.089584,"gap":-0.073322,"action":"Separar el componente Caleta Sierra (M$ 721.610) del resto de la cartera. Su devengo depende del decreto de rebaja del 3% de Hacienda y no refleja rezago de gestión ordinaria."}
+  ],
+  "pmg_scenarios":[
+    {
+      "key":"base",
+      "name":"Escenario base",
+      "tooltip":"Considera la trayectoria de ejecución proyectada como escenario central de cierre.",
+      "calc":87.77,
+      "meta":128.54,
+      "gap":-40.77,
+      "risk":"Riesgo moderado — bajo la meta",
+      "risk_sev":"verde",
+      "risk_text":"Con la trayectoria proyectada, el indicador se ubica bajo la meta de referencia (128,54 puntos). Al ser un indicador de sentido descendente, este resultado refleja una concentración del gasto menor a la esperada. El desempeño es favorable si el ritmo de devengo se sostiene en el segundo semestre.",
+      "annual_m":7637690,
+      "numer_m":5316345,
+      "den_m":6057218,
+      "note":"Proyección basada en la trayectoria de ejecución observada a marzo."
+    },
+    {
+      "key":"optimista",
+      "name":"Escenario optimista",
+      "tooltip":"Asume una ejecución más equilibrada durante el año, con menor concentración del gasto en el cierre.",
+      "calc":62.30,
+      "meta":128.54,
+      "gap":66.24,
+      "risk":"Bajo riesgo de concentración",
+      "risk_sev":"verde",
+      "risk_text":"Cierre con gasto distribuido durante el año. La concentración en segundo semestre, cuarto trimestre y diciembre es baja. Resultado favorable en el indicador de sentido descendente: menor valor implica mejor desempeño de planificación presupuestaria.",
+      "annual_m":9623597,
+      "numer_m":5996099,
+      "den_m":9623597,
+      "note":"Supone distribución regular del gasto durante el año, con menor peso del cuarto trimestre y diciembre."
+    },
+    {
+      "key":"conservador",
+      "name":"Escenario conservador",
+      "tooltip":"Supone rezago en la ejecución durante el año, aumentando la concentración del gasto en los últimos meses, especialmente en diciembre.",
+      "calc":138.50,
+      "meta":128.54,
+      "gap":-9.96,
+      "risk":"Alto riesgo de concentración",
+      "risk_sev":"rojo",
+      "risk_text":"El indicador supera la meta de referencia (128,54 puntos). Al ser un indicador de sentido descendente, este resultado refleja concentración alta del gasto en el segundo semestre, el cuarto trimestre y diciembre. El rezago acumulado a marzo presiona el cierre hacia este escenario si no se activa el devengo en los subtítulos 22 y 29 durante el tercer trimestre.",
+      "annual_m":10372193,
+      "numer_m":14365227,
+      "den_m":10372193,
+      "note":"Supone rezago en la ejecución con acumulación del gasto hacia diciembre."
+    }
+  ],
+  "cdc":{
+    "ratio_bi":1.0133,
+    "status":"Proyección simulada — dato no disponible a marzo",
+    "meta1":83.33,
+    "meta2":65.0,
+    "ratio_aug_proxy":0.1045,
+    "nota_metodologica":"El indicador CDC se calcula con ejecución al 31 de agosto sobre presupuesto vigente al 30 de junio. A marzo de 2026, el valor presentado corresponde a una simulación basada en la trayectoria de devengo observada. No debe interpretarse como resultado definitivo."
+  },
+  "notes":{
+    "foco_critico":"En ST29, M$ 721.610 corresponden a la expropiación Caleta Sierra. El devengo de este componente está sujeto al decreto de rebaja del 3% de Hacienda y no depende de gestión ordinaria del servicio.",
+    "projection_method":"La proyección de cierre es referencial. No representa ejecución real ni comprometida. Se construye con devengo acumulado a marzo, estacionalidad histórica 2024–2025 y programación 2026 cuando aporta señal operacional. Debe leerse separada del porcentaje de ejecución sobre presupuesto vigente.",
+    "st21_method":"La proyección del ST21 es referencial. Se apoya en la estacionalidad histórica 2024–2025 del gasto en personal, acotada al marco presupuestario vigente.",
+    "visual_oper_method":"Comparación entre devengo real a marzo, presupuesto vigente y proyección referencial de cierre para subtítulos operativos.",
+    "st21_reajuste":"El reajuste de M$ 950.000 —monto que en ejercicios anteriores se transfería como suplemento— no será otorgado por DIPRES en 2026. En un subtítulo con escasa holgura operacional, su ausencia elimina un margen de ajuste que históricamente ha operado como cobertura de remuneraciones en el tramo final del año.",
+    "st21_aporte":"El aporte institucional de M$ 1.521.425 se recibirá durante el año, elevando el marco proyectado a M$ 27.023.113. Este monto está comprometido con la cobertura de remuneraciones del personal de planta y contrata."
+  },
+  "closure_scenarios":[
+    {"subt":"22","name":"22 Bienes y Servicios de Consumo","budget_m":9638791,"favorable_m":9130163,"moderado_m":8300148,"adverso_m":7138127},
+    {"subt":"24","name":"24 Transferencias Corrientes","budget_m":1087608,"favorable_m":451742,"moderado_m":403341,"adverso_m":322673},
+    {"subt":"29","name":"29 Adquisición de Activos No Financieros","budget_m":749563,"favorable_m":749563,"moderado_m":625758,"adverso_m":419258}
+  ]
+}
 
-function fmt(v){ return 'M$ '+Math.round(Number(v)).toLocaleString('es-CL'); }
+function fmt(v){ return 'M$ ' +Math.round(Number(v)).toLocaleString('es-CL'); }
 function fmtPct(v,dec){ dec=dec||1; return (Number(v)*100).toLocaleString('es-CL',{minimumFractionDigits:dec,maximumFractionDigits:dec})+'%'; }
 function fmtPp(v,dec){ dec=dec||1; return (Number(v)*100).toLocaleString('es-CL',{minimumFractionDigits:dec,maximumFractionDigits:dec})+' pp'; }
 function trendLbl(v){ return (v>=0?'+':'')+(v*100).toLocaleString('es-CL',{maximumFractionDigits:1})+'%'; }
@@ -482,22 +657,29 @@ var execHtml =
   '<div class="alert-banner verde">'+
     '<div class="alert-banner-icon">&#10003;</div>'+
     '<div class="alert-banner-body">'+
-      '<div class="alert-banner-title">A marzo, el gasto total devengado alcanza '+fmt(data.kpis.total_dev_m)+' ('+fmtPct(data.kpis.total_pct)+').</div>'+
-      '<div class="alert-banner-sub">La lectura directiva debe separar ejecucion efectiva de proyeccion referencial de cierre.</div>'+
+      '<div class="alert-banner-title">Devengo acumulado a marzo: '+fmt(data.kpis.total_dev_m)+' ('+fmtPct(data.kpis.total_pct)+' del presupuesto vigente).</div>'+
+      '<div class="alert-banner-sub">El porcentaje de ejecución se calcula sobre presupuesto vigente. La proyección de cierre es referencial y no representa compromisos formales.</div>'+
+    '</div>'+
+  '</div>'+
+  '<div class="alert-banner rojo">'+
+    '<div class="alert-banner-icon">!</div>'+
+    '<div class="alert-banner-body">'+
+      '<div class="alert-banner-title">ST24 y ST29 registran los mayores rezagos al cierre de marzo.</div>'+
+      '<div class="alert-banner-sub">ST24 devenga '+fmtPct((data.state_rows.find(function(r){return r.subt===24;})||{pct:0}).pct)+' y ST29 '+fmtPct((data.state_rows.find(function(r){return r.subt===29;})||{pct:0}).pct)+' del presupuesto vigente. Ambos requieren monitoreo de activación en el segundo trimestre.</div>'+
     '</div>'+
   '</div>'+
   '<div class="alert-banner amarillo">'+
     '<div class="alert-banner-icon">!</div>'+
     '<div class="alert-banner-body">'+
-      '<div class="alert-banner-title">El foco operativo se concentra en ST24 y ST29.</div>'+
-      '<div class="alert-banner-sub">ST24 devenga '+fmtPct((data.state_rows.find(function(r){return r.subt===24;})||{pct:0}).pct)+' y ST29 '+fmtPct((data.state_rows.find(function(r){return r.subt===29;})||{pct:0}).pct)+' del vigente al cierre de marzo.</div>'+
+      '<div class="alert-banner-title">ST21 opera sin reajuste: DIPRES no transferirá M$ 950.000 en 2026.</div>'+
+      '<div class="alert-banner-sub">El subtítulo cuenta con aporte institucional de '+fmt(data.st21.aporte_institucional_m)+', elevando el marco proyectado a '+fmt(data.st21.presupuesto_proyectado_m)+'. La ausencia del reajuste elimina el margen de cobertura histórico al cierre.</div>'+
     '</div>'+
   '</div>'+
   '<div class="alert-banner verde">'+
     '<div class="alert-banner-icon">$</div>'+
     '<div class="alert-banner-body">'+
-      '<div class="alert-banner-title">Los ingresos devengados totalizan '+fmt(data.kpis.income_dev_m)+'.</div>'+
-      '<div class="alert-banner-sub">Variacion a igual periodo: '+trendLbl(data.kpis.income_var_25)+' respecto de 2025 y '+trendLbl(data.kpis.income_var_24)+' respecto de 2024.</div>'+
+      '<div class="alert-banner-title">Ingresos devengados a marzo: '+fmt(data.kpis.income_dev_m)+'.</div>'+
+      '<div class="alert-banner-sub">Variación respecto de igual período: '+trendLbl(data.kpis.income_var_25)+' vs. 2025 y '+trendLbl(data.kpis.income_var_24)+' vs. 2024.</div>'+
     '</div>'+
   '</div>';
 document.getElementById('execClaves').innerHTML = execHtml;
@@ -505,7 +687,7 @@ document.getElementById('execClaves').innerHTML = execHtml;
 // KPI CARDS
 var incMax = Math.max(data.kpis.income_2024_m, data.kpis.income_2025_m, data.kpis.income_dev_m);
 document.getElementById('kpiCards').innerHTML =
-  '<div class="card top-azul"><div class="label">% ejecucion gasto total</div><div class="value">'+fmtPct(data.kpis.total_pct)+'</div><div class="sub">Dev. '+fmt(data.kpis.total_dev_m)+' / Vigente '+fmt(data.kpis.total_budget_m)+'</div></div>'+
+  '<div class="card top-azul"><div class="label">% ejecucion gasto total</div><div class="value">'+fmtPct(data.kpis.total_pct)+'</div><div class="sub">Dev. '+fmt(data.kpis.total_dev_m)+' / Vigente '+fmt(data.kpis.total_budget_m)+'</div><div class="sub" style="margin-top:4px;font-size:11px;color:var(--text-soft)">Incluye ST21. Ejec. operativa ST22+24+26+29: '+fmtPct(data.kpis.oper_pct)+'</div></div>'+
   '<div class="card top-azul"><div class="label">% ejecucion operativa real</div><div class="value">'+fmtPct(data.kpis.oper_pct)+'</div><div class="sub">Dev. '+fmt(data.kpis.oper_dev_m)+' / Vigente '+fmt(data.kpis.oper_budget_m)+' (ST 22, 24, 26 y 29)</div><div class="kpi-inline">Proyeccion referencial de cierre: '+fmt(data.kpis.oper_proj_m)+'</div></div>'+
   '<div class="card top-verde"><div class="label">Ingresos devengados</div><div class="value">'+fmt(data.kpis.income_dev_m)+'</div><div class="sub">Acumulado a marzo 2026</div>'+
     '<div class="kpi-inline">'+trendLbl(data.kpis.income_var_25)+' vs 2025 &nbsp;·&nbsp; '+trendLbl(data.kpis.income_var_24)+' vs 2024</div>'+
@@ -518,21 +700,22 @@ document.getElementById('kpiCards').innerHTML =
 
 // TABLA ESTADO
 var stHTML='';
-data.state_rows.forEach(function(r){
+data.state_rows.filter(function(r){return r.subt!==21;}).forEach(function(r){
   var saldo=r.budget_m-r.proj_m;
   stHTML+='<tr><td>'+r.name+'</td><td>'+fmt(r.budget_m)+'</td><td>'+fmt(r.dev_m)+'</td><td>'+fmtPct(r.pct)+'</td><td>'+fmt(r.proj_m)+'</td><td>'+fmt(saldo)+'</td></tr>';
 });
 document.getElementById('stateTable').innerHTML=stHTML;
 
 // AVANCE CARDS
-var totalProyAll=data.state_rows.reduce(function(a,r){return a+r.proj_m;},0);
-var totalBudgetGestion=data.state_rows.reduce(function(a,r){return a+r.budget_m;},0);
+var stRowsNoSt21=data.state_rows.filter(function(r){return r.subt!==21;});
+var totalProyAll=stRowsNoSt21.reduce(function(a,r){return a+r.proj_m;},0);
+var totalBudgetGestion=stRowsNoSt21.reduce(function(a,r){return a+r.budget_m;},0);
 var totalSaldoGestion=totalBudgetGestion-totalProyAll;
 document.getElementById('avanceCards').innerHTML =
-  '<div class="card top-azul"><div class="label">Presupuesto total vigente</div><div class="value" style="font-size:26px">'+fmt(data.kpis.total_budget_m)+'</div><div class="sub">Marco presupuestario 2026</div></div>'+
+  '<div class="card top-azul"><div class="label">Presupuesto total vigente</div><div class="value" style="font-size:26px">'+fmt(data.kpis.total_budget_m)+'</div><div class="sub">Marco presupuestario 2026 (ley)</div></div>'+
   '<div class="card top-azul"><div class="label">Devengo acumulado a marzo</div><div class="value" style="font-size:26px">'+fmt(data.kpis.total_dev_m)+'</div><div class="sub">'+fmtPct(data.kpis.total_pct)+' del presupuesto vigente</div></div>'+
-  '<div class="card top-amarillo"><div class="label">Proyeccion subtitulos priorizados</div><div class="value" style="font-size:26px">'+fmt(totalProyAll)+'</div><div class="sub">'+fmtPct(totalProyAll/totalBudgetGestion)+' del vigente en ST 21, 22, 24, 26 y 29</div></div>'+
-  '<div class="card top-verde"><div class="label">Saldo proyectado subtitulos priorizados</div><div class="value" style="font-size:26px">'+fmt(totalSaldoGestion)+'</div><div class="sub">Vigente menos proyeccion referencial</div></div>';
+  '<div class="card top-amarillo"><div class="label">Proyección de cierre — subtítulos priorizados</div><div class="value" style="font-size:26px">'+fmt(totalProyAll)+'</div><div class="sub">Subtítulos 22, 24, 26 y 29. ST21 se analiza en sección independiente</div></div>'+
+  '<div class="card top-verde"><div class="label">Saldo proyectado</div><div class="value" style="font-size:26px">'+fmt(totalSaldoGestion)+'</div><div class="sub">'+(totalSaldoGestion<0?'Proyección supera vigente por aporte institucional ST21 pendiente de transferir':'Vigente menos proyección referencial')+'</div></div>';
 
 // CHART AVANCE HORIZONTAL
 (function(){
@@ -550,8 +733,8 @@ document.getElementById('avanceCards').innerHTML =
     },
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' M$ '+Math.round(c.raw*1e6).toLocaleString('es-CL');}}}},
-      scales:{x:{ticks:{callback:function(v){return 'M$'+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},y:{grid:{display:false}}}
+      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' MM$ ' + c.raw.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});}}}},
+      scales:{x:{ticks:{callback:function(v){return 'MM$ '+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},y:{grid:{display:false}}}
     }
   });
 })();
@@ -625,8 +808,8 @@ document.getElementById('operCards').innerHTML=operRows.map(function(r){
     },
     options:{
       indexAxis:'y',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' M$ '+Math.round(c.raw*1e6).toLocaleString('es-CL');}}}},
-      scales:{x:{ticks:{callback:function(v){return 'M$'+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},y:{grid:{display:false}}}
+      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' MM$ ' + c.raw.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});}}}},
+      scales:{x:{ticks:{callback:function(v){return 'MM$ '+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},y:{grid:{display:false}}}
     }
   });
 })();
@@ -661,7 +844,7 @@ document.getElementById('sub24TableOper').innerHTML=t24b;
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'bottom'}},
-      scales:{y:{ticks:{callback:function(v){return 'M$'+v.toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
+      scales:{y:{ticks:{callback:function(v){return 'MM$ '+v.toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
     }
   });
 })();
@@ -685,11 +868,29 @@ buildRanking('topSeremis',data.top_seremis);
 
 // ST21 CARDS
 var st21r=data.state_rows.find(function(r){return r.subt===21;});
+var st21d=data.st21;
 document.getElementById('st21Cards').innerHTML=
-  '<div class="card top-azul"><div class="label">Presupuesto ST21 vigente</div><div class="value" style="font-size:26px">'+fmt(st21r.budget_m)+'</div></div>'+
-  '<div class="card top-azul"><div class="label">Devengado a marzo</div><div class="value" style="font-size:26px">'+fmt(st21r.dev_m)+'</div><div class="sub">'+fmtPct(st21r.pct)+' del vigente</div></div>'+
-  '<div class="card top-verde"><div class="label">Proyeccion de cierre</div><div class="value" style="font-size:26px">'+fmt(st21r.proj_m)+'</div><div class="sub">'+fmtPct(st21r.proj_m/st21r.budget_m)+' del vigente</div></div>'+
-  '<div class="card top-verde"><div class="label">Saldo proyectado</div><div class="value" style="font-size:26px">'+fmt(st21r.budget_m-st21r.proj_m)+'</div><div class="sub">Marco no comprometido</div></div>';
+  '<div class="card top-azul">'+
+    '<div class="label">Presupuesto vigente (ley)</div>'+
+    '<div class="value" style="font-size:26px">'+fmt(st21d.budget_vigente_m)+'</div>'+
+    '<div class="sub">Base de ejecución 2026</div>'+
+  '</div>'+
+  '<div class="card top-azul">'+
+    '<div class="label">Devengo acumulado a marzo</div>'+
+    '<div class="value" style="font-size:26px">'+fmt(st21d.dev_m)+'</div>'+
+    '<div class="sub">'+fmtPct(st21d.pct_sobre_vigente)+' del presupuesto vigente</div>'+
+  '</div>'+
+  '<div class="card top-verde">'+
+    '<div class="label">Presupuesto proyectado</div>'+
+    '<div class="value" style="font-size:24px">'+fmt(st21d.presupuesto_proyectado_m)+'</div>'+
+    '<div class="sub">Vigente + aporte institucional ('+fmt(st21d.aporte_institucional_m)+')</div>'+
+    '<div class="sub">'+fmtPct(st21d.dev_m/st21d.presupuesto_proyectado_m)+' del proyectado a marzo</div>'+
+  '</div>'+
+  '<div class="card top-rojo">'+
+    '<div class="label">⚠ Reajuste no otorgado por DIPRES</div>'+
+    '<div class="value" style="font-size:26px">'+fmt(st21d.reajuste_m)+'</div>'+
+    '<div class="sub" style="color:var(--crit)">El reajuste de '+fmt(st21d.reajuste_m)+' no será transferido en 2026. En un subtítulo ajustado, su ausencia elimina el margen de cobertura histórico al cierre del año.</div>'+
+  '</div>';
 
 // CHART ST21
 (function(){
@@ -707,7 +908,7 @@ document.getElementById('st21Cards').innerHTML=
     options:{
       responsive:true,maintainAspectRatio:false,
       plugins:{legend:{position:'bottom'}},
-      scales:{y:{ticks:{callback:function(v){return 'M$'+v.toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
+      scales:{y:{ticks:{callback:function(v){return 'MM$ '+v.toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
     }
   });
 })();
@@ -733,8 +934,8 @@ document.getElementById('ingCards').innerHTML=
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' M$ '+Math.round(c.raw*1e6).toLocaleString('es-CL');}}}},
-      scales:{y:{ticks:{callback:function(v){return 'M$'+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
+      plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:function(c){return ' MM$ ' + c.raw.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});}}}},
+      scales:{y:{ticks:{callback:function(v){return 'MM$ '+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
     }
   });
 })();
@@ -756,45 +957,153 @@ document.getElementById('ingCards').innerHTML=
     },
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ' M$ '+Math.round(c.raw*1e6).toLocaleString('es-CL');}}}},
-      scales:{y:{ticks:{callback:function(v){return 'M$'+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return ' MM$ ' + c.raw.toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1});}}}},
+      scales:{y:{ticks:{callback:function(v){return 'MM$ '+Number(v).toLocaleString('es-CL');}},grid:{color:'#E6ECF1'}},x:{grid:{display:false}}}
     }
   });
 })();
 
-// CDC
-document.getElementById('cdcPanel').innerHTML=
-  '<h3>CDC - Compensacion Deuda Corriente</h3>'+
-  '<div style="margin-bottom:10px"><div class="label">Ratio BI</div>'+
-  '<div class="value" style="font-size:28px">'+data.cdc.ratio_bi.toLocaleString('es-CL',{minimumFractionDigits:4,maximumFractionDigits:4})+'</div>'+
-  pillHtml('verde',data.cdc.status)+'</div>'+
-  '<div class="ppto-row"><div class="ppto-label">Proxy agosto</div><div class="ppto-val">'+fmtPct(data.cdc.ratio_aug_proxy)+'</div></div>'+
-  '<div class="ppto-row"><div class="ppto-label">Meta 1 (ejecucion minima)</div><div class="ppto-val">'+data.cdc.meta1.toLocaleString('es-CL',{minimumFractionDigits:2})+'%</div></div>'+
-  '<div class="ppto-row"><div class="ppto-label">Meta 2 (CDC)</div><div class="ppto-val">'+data.cdc.meta2.toLocaleString('es-CL',{minimumFractionDigits:2})+'%</div></div>';
+// CDC — Rediseño regional
+(function(){
+  var cd=data.cdc;
+  var seremis=data.top_seremis;
+  var meta=cd.meta2; // 65%
+
+  // Factor estacional mar→ago basado en tendencia institucional 2024-2025
+  var trend24mar=895189, trend24aug=3958666;
+  var trend25mar=892732, trend25aug=3889439;
+  var seasonFactor=((trend24aug/trend24mar)+(trend25aug/trend25mar))/2;
+
+  // Ejecución institucional actual a marzo
+  var instPct=Math.round(data.kpis.total_pct*1000)/10;
+  var gaugeProgress=Math.min(instPct/meta,1);
+  var r=54,cx=70,cy=70;
+  var sA=Math.PI,eA=Math.PI+gaugeProgress*Math.PI;
+  var x1=cx+r*Math.cos(sA),y1=cy+r*Math.sin(sA);
+  var x2=cx+r*Math.cos(eA),y2=cy+r*Math.sin(eA);
+  var lg=gaugeProgress>0.5?1:0;
+  var gaugeColor='#9CA3AF'; // Gris fijo: dato simulado
+
+  var gaugeSvg=
+    '<svg viewBox="0 0 140 82" width="150" style="display:block;margin:0 auto 4px">'+
+    '<path d="M16,70 A54,54 0 0,1 124,70" fill="none" stroke="#E5E7EB" stroke-width="12" stroke-linecap="round"/>'+
+    '<path d="M'+x1+','+y1+' A'+r+','+r+' 0 '+lg+',1 '+x2+','+y2+'" fill="none" stroke="'+gaugeColor+'" stroke-width="12" stroke-linecap="round"/>'+
+    '<text x="70" y="58" text-anchor="middle" font-size="17" font-weight="800" fill="'+gaugeColor+'">'+instPct+'%</text>'+
+    '<text x="70" y="70" text-anchor="middle" font-size="9" fill="#9CA3AF">Dato simulado</text>'+
+    '<text x="70" y="80" text-anchor="middle" font-size="8" fill="#617284">Meta: '+meta+'%</text>'+
+    '</svg>';
+
+  var rows=seremis.map(function(s){
+    var pctMar=Math.round(s.pct*1000)/10;
+    var projAugDev=s.dev_m*seasonFactor;
+    var projAugPct=Math.min(projAugDev/s.budget_m*100,100);
+    projAugPct=Math.round(projAugPct*10)/10;
+    var cumple=projAugPct>=meta;
+    var gap=Math.round((projAugPct-meta)*10)/10;
+
+    // Colores basados en proyección, no en avance actual
+    var barColor=cumple?'var(--ok)':gap>=-10?'var(--warn)':'var(--crit)';
+    var marW=Math.min(pctMar/meta*100,100);       // barra sólida = avance actual
+    var projW=Math.min(projAugPct/meta*100,100);  // barra translúcida = proyección
+
+    var shortName=s.name.replace('Seremi de ','').replace('Seremi del ','').replace('Seremi ','');
+    var badge=cumple
+      ?'<span style="font-size:10px;background:#E8F5E9;color:var(--ok);padding:1px 6px;border-radius:10px;font-weight:600">✓ Cumple</span>'
+      :'<span style="font-size:10px;background:'+(gap>=-10?'#FFF8E1':'#FFEBEE')+';color:'+(gap>=-10?'var(--warn)':'var(--crit)')+';padding:1px 6px;border-radius:10px;font-weight:600">'+(gap>=-10?'⚠':'✕')+' Falta '+Math.abs(gap).toFixed(1)+'pp</span>';
+
+    return '<div style="margin-bottom:12px">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:4px">'+
+        '<span style="font-weight:600">'+shortName+'</span>'+
+        '<span style="display:flex;align-items:center;gap:6px">'+
+          '<span style="color:var(--text-soft);font-size:11px">Mar: <strong>'+pctMar+'%</strong></span>'+
+          '<span style="color:var(--text-soft);font-size:11px">→ Proy. ago: <strong style="color:'+barColor+'">'+projAugPct+'%</strong></span>'+
+          badge+
+        '</span>'+
+      '</div>'+
+      '<div style="background:#E5E7EB;border-radius:4px;height:10px;position:relative">'+
+        // Proyección (fondo translúcido)
+        '<div style="position:absolute;left:0;top:0;width:'+projW+'%;height:10px;border-radius:4px;background:'+barColor+';opacity:0.25"></div>'+
+        // Avance actual (sólido)
+        '<div style="position:absolute;left:0;top:0;width:'+marW+'%;height:10px;border-radius:4px;background:'+barColor+'"></div>'+
+        // Línea meta (extremo derecho = 65%)
+        '<div style="position:absolute;top:-3px;right:0;width:2px;height:16px;background:#6B7280;border-radius:1px"></div>'+
+      '</div>'+
+      '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-soft);margin-top:2px">'+
+        '<span>0%</span>'+
+        '<span>Meta: '+meta+'%</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  document.getElementById('cdcPanel').innerHTML=
+    '<h3 style="margin:0 0 4px;font-size:15px">CDC — Proyección de cumplimiento por SEREMI</h3>'+
+    '<p style="font-size:12px;color:var(--text-soft);margin:0 0 10px;line-height:1.5">'+
+      'Cada barra muestra el <strong>avance actual a marzo</strong> (color sólido) y la <strong>proyección a agosto</strong> (sombra). '+
+      'La línea vertical derecha es la meta del <strong>'+meta+'%</strong>. El color refleja si la SEREMI <em>llegará</em> a la meta en agosto.'+
+    '</p>'+
+    '<div style="padding:8px 12px;background:#FFF8E1;border-left:3px solid #B7791F;border-radius:6px;font-size:11px;color:#7A5C1E;margin-bottom:14px">'+
+      '<strong>⚠ Simulación:</strong> Proyección basada en factor estacional mar→ago de 2024–2025 (factor '+seasonFactor.toFixed(2)+'x). No usar para control formal.'+
+    '</div>'+
+    '<div style="display:flex;align-items:center;gap:20px;padding:10px 14px;background:#F8FAFC;border-radius:8px;margin-bottom:14px;flex-wrap:wrap">'+
+      gaugeSvg+
+      '<div style="flex:1;min-width:140px">'+
+        '<div style="font-size:11px;color:var(--text-soft);margin-bottom:2px">Ejecución institucional a marzo</div>'+
+        '<div style="font-size:28px;font-weight:800;color:'+gaugeColor+'">'+instPct+'%</div>'+
+        '<div style="font-size:11px;color:var(--text-soft);margin-top:4px">Faltan <strong>'+(meta-instPct).toFixed(1)+'pp</strong> para la meta de <strong>'+meta+'%</strong></div>'+
+        '<div style="font-size:11px;color:var(--text-soft);margin-top:2px">Proyección institucional a agosto: <strong>'+(Math.round(instPct*seasonFactor*10)/10)+'%</strong></div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="font-size:11px;font-weight:700;color:var(--text-soft);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">'+
+      'Proyección agosto por SEREMI (barra llena = meta '+meta+'% cumplida)'+
+    '</div>'+
+    rows;
+})();
 
 // PMG
-document.getElementById('pmgScenarios').innerHTML=data.pmg_scenarios.map(function(s){
-  var sev=s.gap>=0?'verde':'rojo';
-  return '<div class="pm-card">'+
-    '<h4>'+s.name+'</h4>'+
-    '<div class="big" style="color:var(--'+(sev==='verde'?'ok':'crit')+')">'+s.calc.toLocaleString('es-CL',{minimumFractionDigits:2})+'%</div>'+
-    '<div class="sub">Meta CDC: '+s.meta.toLocaleString('es-CL',{minimumFractionDigits:2})+'% | Brecha: '+(s.gap>0?'+':'')+s.gap.toLocaleString('es-CL',{minimumFractionDigits:2})+' pp</div>'+
-    pillHtml(sev,s.label)+
-    '<div class="small-note">'+s.note+' Escenario referencial.</div>'+
-  '</div>';
-}).join('');
+document.getElementById('pmgScenarios').innerHTML=
+  '<div style="margin-bottom:14px;padding:10px 14px;background:#FFF8E1;border-left:3px solid #B7791F;border-radius:6px;font-size:12px;color:#7A5C1E">'+
+    '<strong>Indicador PMG — Concentración del gasto en ST22 y ST29 (sentido descendente):</strong> '+
+    'Fórmula: (Gasto 2.° semestre + Gasto 4.° trimestre + Gasto diciembre) / Total gasto anual ST22+ST29 × 100. '+
+    'El indicador tiene sentido descendente: un valor menor refleja mejor gestión presupuestaria. '+
+    'Diciembre pondera tres veces en el numerador. La meta institucional busca reducir la concentración respecto del año anterior. '+
+    'A marzo de 2026, los valores son proyectados y referenciales.'+
+  '</div>'+
+  data.pmg_scenarios.map(function(s){
+    var sevColor=s.risk_sev==='verde'?'var(--ok)':s.risk_sev==='amarillo'?'var(--warn)':'var(--crit)';
+      // Indicador de sentido descendente: calc < meta = favorable; calc > meta = desfavorable
+    return '<div class="pm-card" style="position:relative">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">'+
+        '<h4 style="margin:0">'+s.name+'</h4>'+
+        '<span class="tooltip-wrap" tabindex="0" style="display:inline-flex">'+
+          '<button class="tooltip-icon" style="font-size:11px">?</button>'+
+          '<span class="tooltip" style="min-width:220px">'+s.tooltip+'</span>'+
+        '</span>'+
+      '</div>'+
+      '<div class="big" style="color:'+sevColor+'">'+s.calc.toLocaleString('es-CL',{minimumFractionDigits:2})+'%</div>'+
+      '<div class="sub" style="margin-bottom:6px">Meta PMG referencial: '+s.meta.toLocaleString('es-CL',{minimumFractionDigits:2})+'% &nbsp;|&nbsp; Brecha: '+(s.gap>0?'+':'')+s.gap.toLocaleString('es-CL',{minimumFractionDigits:2})+' pp</div>'+
+      pillHtml(s.risk_sev, s.risk.charAt(0).toUpperCase()+s.risk.slice(1))+
+      '<div style="margin-top:8px;padding:8px 10px;background:#F5F7FA;border-radius:6px;font-size:12px;color:var(--text-soft)">'+s.risk_text+'</div>'+
+      '<div class="small-note" style="margin-top:6px">'+s.note+'</div>'+
+    '</div>';
+  }).join('');
 
 // ALERTAS
-document.getElementById('alertsBox').innerHTML=data.alerts.map(function(a){
-  return '<div class="alert-banner '+a.sev+'">'+
-    '<div class="alert-banner-icon">'+(a.sev==='verde'?'&#10003;':'!')+'</div>'+
-    '<div class="alert-banner-body">'+
-      '<div class="alert-banner-title">'+a.name+' - '+a.title+'</div>'+
-      '<div class="alert-banner-sub">Avance: '+fmtPct(a.pct)+' / Esperado: '+fmtPct(a.exp_pct)+' / Brecha: '+(a.gap*100).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1})+' pp</div>'+
-      '<div class="alert-banner-action">'+a.action+'</div>'+
-    '</div>'+
-  '</div>';
-}).join('');
+(function(){
+  var sevOrd={rojo:0,amarillo:1,verde:2};
+  var sorted=data.alerts.slice().sort(function(a,b){
+    return (sevOrd[a.sev]!=null?sevOrd[a.sev]:9)-(sevOrd[b.sev]!=null?sevOrd[b.sev]:9);
+  });
+  document.getElementById('alertsBox').innerHTML=sorted.map(function(a){
+    return '<div class="alert-banner '+a.sev+'">'+
+      '<div class="alert-banner-icon">'+(a.sev==='verde'?'&#10003;':'!')+'</div>'+
+      '<div class="alert-banner-body">'+
+        '<div class="alert-banner-title">'+a.name+' - '+a.title+'</div>'+
+        '<div class="alert-banner-sub">Avance: '+fmtPct(a.pct)+' / Esperado: '+fmtPct(a.exp_pct)+' / Brecha: '+(a.gap*100).toLocaleString('es-CL',{minimumFractionDigits:1,maximumFractionDigits:1})+' pp</div>'+
+        '<div class="alert-banner-action">'+a.action+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+})();
 
 // ESCENARIOS
 (function(){
@@ -873,6 +1182,13 @@ document.querySelectorAll('main section[id]').forEach(function(s){ obs.observe(s
 
 // INIT
 setModoVista('ejecutivo');
+
+  (function(){
+    var btn=document.getElementById('mobileMenuBtn');
+    if(btn) btn.addEventListener('click',function(){document.body.classList.toggle('sidebar-open');});
+  })();
+
+(function(){var btn=document.getElementById('mobileMenuBtn');if(btn)btn.addEventListener('click',function(){document.body.classList.toggle('sidebar-open');});})();
 </script>
 </body>
 </html>
